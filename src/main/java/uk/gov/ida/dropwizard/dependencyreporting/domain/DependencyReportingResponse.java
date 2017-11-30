@@ -30,16 +30,16 @@ public class DependencyReportingResponse {
     private final Collection<String> applicationLibraries;
 
     @JsonCreator
-    public DependencyReportingResponse(DateTime dateTime,
-                                       String hostname,
-                                       String osName,
-                                       String osArch,
-                                       String osVersion,
-                                       String runtimeVendor,
-                                       String runtimeVersion,
-                                       String applicationName,
-                                       String applicationVersion,
-                                       Collection<String> applicationLibraries) {
+    public DependencyReportingResponse(@JsonProperty("datetime") DateTime dateTime,
+                                       @JsonProperty("system.hostname") String hostname,
+                                       @JsonProperty("os.name") String osName,
+                                       @JsonProperty("os.arch") String osArch,
+                                       @JsonProperty("os.version") String osVersion,
+                                       @JsonProperty("runtime.vendor") String runtimeVendor,
+                                       @JsonProperty("runtime.version") String runtimeVersion,
+                                       @JsonProperty("application.name") String applicationName,
+                                       @JsonProperty("application.version") String applicationVersion,
+                                       @JsonProperty("application.libraries") Collection<String> applicationLibraries) {
         this.dateTime = dateTime;
         this.hostname = hostname;
         this.osName = osName;

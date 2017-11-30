@@ -44,7 +44,7 @@ public class DependenctReportingIntegrationTest {
         DependencyReportingResponse dependencyReportingResponse = response.readEntity(DependencyReportingResponse.class);
         assertThat(dependencyReportingResponse).isNotNull();
         assertThat(dependencyReportingResponse.getApplicationLibraries().size()).isNotZero();
-        assertThat(dependencyReportingResponse.getApplicationLibraries().contains("rt.jar")).isTrue();
+        assertThat(dependencyReportingResponse.getApplicationLibraries().stream().anyMatch(name -> name.endsWith(".jar"))).isTrue();
     }
 
     @Test
@@ -59,6 +59,6 @@ public class DependenctReportingIntegrationTest {
         DependencyReportingResponse dependencyReportingResponse = Jackson.newObjectMapper().readValue(jsonString, DependencyReportingResponse.class);
         assertThat(dependencyReportingResponse).isNotNull();
         assertThat(dependencyReportingResponse.getApplicationLibraries().size()).isNotZero();
-        assertThat(dependencyReportingResponse.getApplicationLibraries().contains("rt.jar")).isTrue();
+        assertThat(dependencyReportingResponse.getApplicationLibraries().stream().anyMatch(name -> name.endsWith(".jar"))).isTrue();
     }
 }

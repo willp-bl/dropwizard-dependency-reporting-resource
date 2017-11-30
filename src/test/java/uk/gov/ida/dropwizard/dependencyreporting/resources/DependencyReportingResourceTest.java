@@ -6,6 +6,7 @@ import org.junit.Test;
 import uk.gov.ida.dropwizard.dependencyreporting.domain.DependencyReportingResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static uk.gov.ida.dropwizard.dependencyreporting.resources.DependencyReportingResource.DEPENDENCY_REPORT_RESOURCE;
 
 public class DependencyReportingResourceTest {
 
@@ -16,7 +17,7 @@ public class DependencyReportingResourceTest {
 
     @Test
     public void getDependencyReportingResponse() throws Exception {
-        final DependencyReportingResponse response = rootResource.client().target("/").request().get(DependencyReportingResponse.class);
+        final DependencyReportingResponse response = rootResource.client().target(DEPENDENCY_REPORT_RESOURCE).request().get(DependencyReportingResponse.class);
         assertThat(response.getDateTime().isBeforeNow()).isTrue();
         assertThat(response.getHostname()).isNotEmpty();
         assertThat(response.getHostname()).isNotEqualTo("error");
@@ -34,7 +35,7 @@ public class DependencyReportingResourceTest {
         assertThat(response.getApplicationName()).isNotEqualTo("error");
         assertThat(response.getApplicationVersion()).isNotEmpty();
         assertThat(response.getApplicationLibraries().size()).isNotZero();
-        assertThat(response.getApplicationLibraries().contains("rt.jar")).isTrue();
+        assertThat(response.getApplicationLibraries().stream().anyMatch(name -> name.endsWith(".jar"))).isTrue();
     }
 
 }
